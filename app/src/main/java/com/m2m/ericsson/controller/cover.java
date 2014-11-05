@@ -2,13 +2,19 @@ package com.m2m.ericsson.controller;
 
 //android import
 import android.app.Activity;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.database.Cursor;
+
 
 //Java import
-
-//Internal import
+import java.sql.SQLException;
+import java.util.ArrayList;
+////Internal import
+import model.sqlite.AuxTableScreme;
 import model.javaTree.Sensor;
 import model.sqlite.DataBaseManager;
 
@@ -22,9 +28,68 @@ public class cover extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cover);
         mSQLite=new DataBaseManager(this);
-        //mSQLite.inspect(Sensor.class);
-        mSQLite.makeTable("prueba");
-        mSQLite.Show();
+       // mSQLite.inspect(Sensor.class);
+       AuxTableScreme colum1=new AuxTableScreme("Atributto1", "String", "1");
+       AuxTableScreme colum2=new AuxTableScreme("Atributto2", "String", "2");
+       ArrayList<AuxTableScreme> auxArray=new ArrayList<AuxTableScreme>();
+       auxArray.add(colum1);
+       auxArray.add(colum2);
+       mSQLite.deleteTable("aux");
+       mSQLite.makeTable("aux",auxArray);
+       mSQLite.showColumns("aux");
+       String Atributto1valor="11";
+       String Atributto2valor="12";
+        String Atributto11valor="111";
+        String Atributto22valor="122";
+       SQLiteDatabase db = mSQLite.getWritableDatabase();
+        try{
+            db.execSQL("INSERT INTO aux(Atributto1,Atributto2) " +
+                    "VALUES('" +
+                   "1"+"','"+
+                   "2"+
+                    "') ");
+            Log.d("---Valores insertados---","1,2----");
+        }catch (Exception e){
+            Log.d("Error insertando1 en la tabla", e.getMessage());
+        }
+
+        try{
+            db.execSQL("INSERT INTO aux(Atributto1,Atributto2) " +
+                    "VALUES('" +
+                    Atributto1valor+"','"+
+                    Atributto2valor+
+                    "') ");
+            Log.d("---Valores insertados--", Atributto1valor+" ,"+ Atributto2valor+"-----");
+        }catch (Exception e){
+            Log.d("Error insertando2 en la tabla",e.getMessage());
+        }
+        try{
+            db.execSQL("INSERT INTO aux(Atributto1,Atributto2) " +
+                    "VALUES('" +
+                    Atributto11valor+"','"+
+                    Atributto22valor+
+                    "') ");
+            Log.d("---Valores insertados--", Atributto11valor+" ,"+ Atributto22valor+"-----");
+        }catch (Exception e){
+            Log.d("Error insertando2 en la tabla",e.getMessage());
+        }
+        String[] arguments=new String[1];
+        arguments[0]="0";
+        Cursor aux = db.rawQuery("Select * from aux where id >= ?",arguments);
+        int filas=aux.getCount();
+        int columnas=aux.getColumnCount();
+        Log.d("---filas ,columnas--", filas+" ,"+ columnas+"-----");
+        aux.moveToFirst();
+        for(int indexf=0; indexf <filas; indexf++){
+                      for(int indexc=0; indexc <columnas; indexc++) {
+                           String  s = aux.getString(indexc);
+                Log.d("-valor C de--"+aux.getColumnName(indexc)+"--en indice--:"+indexc,"---es----"+ s+"------------" );
+                           }
+            if(!aux.isLast()){
+                aux.moveToNext();}
+        }
+        aux.close();
+        db.close();
     }
 
 

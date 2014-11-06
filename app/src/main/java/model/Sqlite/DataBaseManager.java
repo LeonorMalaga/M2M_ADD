@@ -164,5 +164,4 @@ public void addColum(String tablename,String columName, String type, String  val
 db.close();
     }
 }
-
 }

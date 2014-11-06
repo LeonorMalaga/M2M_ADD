@@ -28,22 +28,36 @@ public class cover extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cover);
         mSQLite=new DataBaseManager(this);
-       // mSQLite.inspect(Sensor.class);
-       AuxTableScreme colum1=new AuxTableScreme("Atributto1", "String", "1");
-       AuxTableScreme colum2=new AuxTableScreme("Atributto2", "String", "2");
-       ArrayList<AuxTableScreme> auxArray=new ArrayList<AuxTableScreme>();
-       auxArray.add(colum1);
-       auxArray.add(colum2);
-       mSQLite.deleteTable("aux");
-       mSQLite.makeTable("aux",auxArray);
-       mSQLite.showColumns("aux");
-       String Atributto1valor="11";
+        /*mSQLite.deleteTable("Sensor_PayloadId");
+        mSQLite.deleteTable("Sensor_ResourceId");
+        mSQLite.deleteTable("SensorId");
+        mSQLite.deleteTable("SensorSpecification");
+        mSQLite.deleteTable("SensorType");
+        mSQLite.deleteTable("id");
+        mSQLite.deleteTable("ResourceId");
+        mSQLite.deleteTable("PayloadId");
+
+        mSQLite.deleteTable("Sensor");
+        mSQLite.makeTable(Sensor.class);*/
+        mSQLite.showTables();
+       /* mSQLite.showColumns("Sensor");
+        mSQLite.showColumns("Sensor_Resource");
+        mSQLite.showColumns("Sensor_Payload");
+      AuxTableScreme colum1=new AuxTableScreme("AtributtoId", "String", "1");
+     AuxTableScreme colum2=new AuxTableScreme("Atributto2", "String", "2");
+     ArrayList<AuxTableScreme> auxArray=new ArrayList<AuxTableScreme>();
+     auxArray.add(colum1);
+     auxArray.add(colum2);
+     mSQLite.deleteTable("aux");
+     mSQLite.makeTableFilteringId("aux",auxArray);
+     mSQLite.showColumns("aux");
+     String Atributto1valor="11";
        String Atributto2valor="12";
         String Atributto11valor="111";
         String Atributto22valor="122";
        SQLiteDatabase db = mSQLite.getWritableDatabase();
         try{
-            db.execSQL("INSERT INTO aux(Atributto1,Atributto2) " +
+            db.execSQL("INSERT INTO aux(AtributtoId,Atributto2) " +
                     "VALUES('" +
                    "1"+"','"+
                    "2"+
@@ -54,7 +68,7 @@ public class cover extends Activity {
         }
 
         try{
-            db.execSQL("INSERT INTO aux(Atributto1,Atributto2) " +
+            db.execSQL("INSERT INTO aux(AtributtoId,Atributto2) " +
                     "VALUES('" +
                     Atributto1valor+"','"+
                     Atributto2valor+
@@ -64,7 +78,7 @@ public class cover extends Activity {
             Log.d("Error insertando2 en la tabla",e.getMessage());
         }
         try{
-            db.execSQL("INSERT INTO aux(Atributto1,Atributto2) " +
+            db.execSQL("INSERT INTO aux(AtributtoId,Atributto2) " +
                     "VALUES('" +
                     Atributto11valor+"','"+
                     Atributto22valor+
@@ -89,7 +103,7 @@ public class cover extends Activity {
                 aux.moveToNext();}
         }
         aux.close();
-        db.close();
+        db.close();*/
     }
 
 

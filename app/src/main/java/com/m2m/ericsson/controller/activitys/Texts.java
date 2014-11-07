@@ -1,4 +1,4 @@
-package com.m2m.ericsson.controller;
+package com.m2m.ericsson.controller.activitys;
 
 //android import
 import android.app.Activity;
@@ -11,6 +11,8 @@ import android.database.Cursor;
 
 
 //Java import
+import com.m2m.ericsson.controller.R;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 ////Internal import
@@ -19,7 +21,7 @@ import model.javaTree.Sensor;
 import model.sqlite.DataBaseManager;
 
 
-public class cover extends Activity {
+public class Texts extends Activity {
     //Atributtes
     DataBaseManager mSQLite=null;
 

@@ -1,7 +1,8 @@
 package model.sqlite;
 
 /**
- * Created by paco on 05/11/2014.
+ *Created by M2M_Ericcson on 01/11/2014.
+ * auxiliar class to make ArrayList<AuxTableScreme>
  */
 public class AuxTableScreme {
     public String columName=null;

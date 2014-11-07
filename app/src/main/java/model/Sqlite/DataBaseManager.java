@@ -53,7 +53,7 @@ public void onCreate(SQLiteDatabase db) {
 //This method is called when database is upgraded like modifying the table structure, adding constraints to database etc.,
     }
 
-//make a text table with a id
+/**make a text table with a id*/
   public void makeTable(String name ){
       SQLiteDatabase db =null;
       try{
@@ -67,7 +67,58 @@ public void onCreate(SQLiteDatabase db) {
       }
   }
 
+    /**@param a empety ArrayList<AuxTableScreme> , the method add to the ArrayList the columns that should has a table
+     * if it  doing from a specific class
+     * Also print all the tables
+     */
+    public <T> void  showDefaultTables_Columns(Class<T> klazz, ArrayList<AuxTableScreme> columns) {
+        columns=null;
+        try  {  //obtain Table name
+            String path= klazz.getName();
+            StringTokenizer st = new StringTokenizer(path,".");
+            List<String> pathList=new ArrayList();
+            while (st.hasMoreTokens()){
+                pathList.add(st.nextToken());
+            }
+            int index=pathList.size()-1;
+            String name=pathList.get(index);
+            Log.d("-----Default columns for table------","----------:"+name+"--------");
+            //obtain columns info
+            columns=new ArrayList<AuxTableScreme>();
+            Field[] fields = klazz.getDeclaredFields();
+           // Log.d("-----COLUMNAS----------","--------------------------------------------------");
+            for (Field field : fields) {
 
+                String columName=field.getName();
+                if(columName.startsWith("m")){
+                    columName= columName.substring(1);
+                }
+                String type= field.getType().getSimpleName();
+//is necesary add more cases like arrayList, arrays,
+               // Log.d("-----TYPE----------","---"+type+"--is equals List---"+(type.equalsIgnoreCase("List")));
+                if(type.equalsIgnoreCase("List")){
+                    //if attribute type is iterable, we build a relational table
+                    columName=columName.replace("List","");
+                    String ralationalTableName=name+"_"+columName;
+                    String colum1=name+"Id";
+                    String colum2=columName+"Id";
+                    Log.d("-----ATTRIBUTE ----------","--- is an array , so shull exist a relational table name----"+ralationalTableName+"--with columns:Id,"+colum1+","+colum2);
+                    //parameters for build the table from of class
+                    columName=ralationalTableName+"Id";
+                    type="INTEGER";
+                }
+                Log.d("-----NOMBRE:----------"+columName,"---------------------TYPO:-----------------"+type+"-------------------");
+                AuxTableScreme colum1=new AuxTableScreme( columName,type, "0");
+                columns.add(colum1);
+            }
+
+        }catch (Exception e) {
+            Log.e("---Show Columns Exception-----", e.getMessage().toString()+"-------------------------------");
+
+        }
+
+
+    }
 
 /**Make tables from a class
  * every attribute make a column
@@ -156,7 +207,7 @@ public void showTables(){
                      db.close();
                      c.close();
          }
-*/List the existing columns in a table
+/**List the existing columns in a table*/
 public void showColumns(String table){
     Log.d("----Show Columns of--------",table);
     SQLiteDatabase db =null;
@@ -306,5 +357,47 @@ public void addColum(String tablename,String columName, String type, String  val
 db.close();
     }
 }
+
+
+/**
+ *This method returns a ArrayList<AuxTableScreme>
+ *  With all the rows of a table
+ */
+    public ArrayList<AuxTableScreme> allRows(String tableName){
+        SQLiteDatabase db =null;
+        try{
+        db = this.getWritableDatabase();
+        ArrayList<AuxTableScreme> auxArray=new ArrayList<AuxTableScreme>();
+        String[] arguments=new String[1];
+        arguments[0]="0";
+        Cursor aux = db.rawQuery("Select * from"+tableName+" where id >= ?",arguments);
+        int filas=aux.getCount();
+        int columnas=aux.getColumnCount();
+        Log.d("---filas ,columnas--", filas+" ,"+ columnas+"-----");
+        aux.moveToFirst();
+        for(int indexf=0; indexf <filas; indexf++){
+            for(int indexc=0; indexc <columnas; indexc++) {
+                String columName=aux.getColumnName(indexc);
+                String value = aux.getString(indexc);
+                String type="TEXT";
+                if(columName.endsWith("Id")){
+                    type=String.valueOf(aux.getType(indexc));
+                }
+                Log.d("-value of--"+columName+"--in indix--:"+indexc,"---is----"+ value+"----type--------"+type );
+                AuxTableScreme colum1=new AuxTableScreme(columName, type, value);
+                auxArray.add(colum1);
+                            }
+            if(!aux.isLast()){
+                aux.moveToNext();}
+        }
+        aux.close();
+        db.close();
+        return auxArray;
+        } catch (Exception e) {
+            Log.e("---select All rows exception-----", e.getMessage().toString() + "-------------------------------");
+            db.close();
+            return null;
+        }
+    }
 
 }

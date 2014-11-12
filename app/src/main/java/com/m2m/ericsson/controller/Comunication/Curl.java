@@ -1,4 +1,4 @@
-package com.m2m.ericsson.controller.curl;
+package com.m2m.ericsson.controller.Comunication;
 
 /**
  * Created by paco on 07/11/2014.

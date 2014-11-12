@@ -1,19 +1,13 @@
-package com.m2m.ericsson.controller.activitys;
+package com.m2m.ericsson.controller.Comunication;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
-import android.view.View;
-import android.view.ViewGroup;
-import android.os.Bundle;
 //java import
 import com.m2m.ericsson.controller.R;
 
 import java.net.URL;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpEntity;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.HttpClient;
+
 import org.apache.commons.io.IOUtils;
 import java.net.URLConnection;
 

@@ -8,7 +8,7 @@ import java.util.List;
  * Created by M2M_Ericcson on 24/10/2014.
  * this class represent the relationship between the user of this aplication with his company, the client of the company, and the proyect about he is working
  */
-public class Enterprise_Technician_Data implements Serializable {
+public class ProyectData implements Serializable {
     /**
      * Atributte
      */
@@ -28,7 +28,7 @@ public class Enterprise_Technician_Data implements Serializable {
     /**
      * Constructor
      */
-    public Enterprise_Technician_Data(String mOperatorIdentifier, String mOperatorPassword, String mDomainApplicationId, String mDomainPassword, String mEnterpriseCustomerId, String mUserId, String mPassword) {
+    public ProyectData(String mOperatorIdentifier, String mOperatorPassword, String mDomainApplicationId, String mDomainPassword, String mEnterpriseCustomerId, String mUserId, String mPassword) {
         this.mOperatorIdentifier = mOperatorIdentifier;
         this.mOperatorPassword = mOperatorPassword;
         this.mDomainApplicationId = mDomainApplicationId;
@@ -133,9 +133,9 @@ public class Enterprise_Technician_Data implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Enterprise_Technician_Data)) return false;
+        if (!(o instanceof ProyectData)) return false;
 
-        Enterprise_Technician_Data that = (Enterprise_Technician_Data) o;
+        ProyectData that = (ProyectData) o;
 
         if (!mDomainApplicationId.equals(that.mDomainApplicationId)) return false;
         if (mDomainPassword != null ? !mDomainPassword.equals(that.mDomainPassword) : that.mDomainPassword != null)

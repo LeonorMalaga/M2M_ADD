@@ -4,7 +4,7 @@ package model.javaTree;
  * Created by M2M_Ericcson on 24/10/2014.
  * this class conteing the information necesari to comunicate with the data server
  */
-public class DM_Generic_Access {
+public class DMGenericAccess {
     //Acces CUL parameters
     private String mURLprovisioningAcces = null;//ejem http://10.95.20.162:8181/m2m/provisioning/LL/enterpriseCustomer
     private String mURLsouthboundAcces = null;//ejem http://10.95.20.162:8181/m2m/southbound/dataStore
